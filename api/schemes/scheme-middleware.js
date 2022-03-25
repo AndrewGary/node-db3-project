@@ -1,4 +1,6 @@
-/*
+const Schemes = require('../schemes/scheme-model');
+
+  /*
   If `scheme_id` does not exist in the database:
 
   status 404
@@ -8,6 +10,13 @@
 */
 const checkSchemeId = (req, res, next) => {
 
+  Schemes.findById(req.params.scheme_id)
+  .then(scheme => {
+    next();
+  })
+  .catch(error => {
+    next({status: 404, message: `scheme with scheme_id ${req.params.scheme_id} not found`});
+  })
 }
 
 /*
@@ -19,7 +28,7 @@ const checkSchemeId = (req, res, next) => {
   }
 */
 const validateScheme = (req, res, next) => {
-
+  next();
 }
 
 /*
@@ -32,7 +41,7 @@ const validateScheme = (req, res, next) => {
   }
 */
 const validateStep = (req, res, next) => {
-
+  next();
 }
 
 module.exports = {
